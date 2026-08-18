@@ -27,9 +27,11 @@ const {
     <title>{title}</title>
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="grid-bg" aria-hidden="true"></div>
     <div class="glow-orb glow-orb--cyan" aria-hidden="true"></div>
     <div class="glow-orb glow-orb--amber" aria-hidden="true"></div>
     <slot />
+    <script src="../scripts/effects.ts"></script>
   </body>
 </html>

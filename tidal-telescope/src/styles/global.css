@@ -15,6 +15,7 @@
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --radius: 8px;
   --max-width: 1100px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *,
@@ -52,6 +53,19 @@ a:hover {
   opacity: 0.85;
 }
 
+/* Scroll progress */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  z-index: 200;
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  box-shadow: 0 0 12px var(--accent-dim);
+  transition: width 0.1s linear;
+}
+
 /* Grid background */
 .grid-bg {
   position: fixed;
@@ -63,6 +77,7 @@ a:hover {
   background-size: 60px 60px;
   opacity: 0.15;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+  animation: grid-drift 40s linear infinite;
 }
 
 .glow-orb {
@@ -71,6 +86,8 @@ a:hover {
   filter: blur(120px);
   z-index: -1;
   pointer-events: none;
+  transition: transform 0.4s var(--ease-out);
+  will-change: transform;
 }
 
 .glow-orb--cyan {
@@ -79,6 +96,7 @@ a:hover {
   background: #00ffd515;
   top: -100px;
   right: -100px;
+  animation: orb-float 12s ease-in-out infinite;
 }
 
 .glow-orb--amber {
@@ -87,6 +105,7 @@ a:hover {
   background: #f59e0b10;
   bottom: 20%;
   left: -150px;
+  animation: orb-float 16s ease-in-out infinite reverse;
 }
 
 .container {
@@ -124,14 +143,41 @@ a:hover {
   background: var(--bg);
   border: 1px solid var(--border);
   color: var(--text-muted);
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
 
 .tag:hover {
   border-color: var(--accent-dim);
   color: var(--accent);
+  transform: translateY(-1px);
 }
 
+/* Card shine overlay */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(0, 255, 213, 0.07) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.65s var(--ease-out);
+  pointer-events: none;
+}
+
+.card-shine:hover::after {
+  transform: translateX(100%);
+}
+
+/* Animations */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -143,14 +189,104 @@ a:hover {
   }
 }
 
+@keyframes grid-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 60px 60px;
+  }
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24px, -16px) scale(1.04);
+  }
+  66% {
+    transform: translate(-12px, 12px) scale(0.98);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 12px var(--accent-dim);
+  }
+  50% {
+    box-shadow: 0 0 22px var(--accent);
+  }
+}
+
 .animate-in {
-  animation: fade-up 0.6s ease-out both;
+  animation: fade-up 0.6s var(--ease-out) both;
 }
 
 .animate-in-delay-1 { animation-delay: 0.1s; }
 .animate-in-delay-2 { animation-delay: 0.2s; }
 .animate-in-delay-3 { animation-delay: 0.3s; }
 .animate-in-delay-4 { animation-delay: 0.4s; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s var(--ease-out),
+    transform 0.75s var(--ease-out);
+}
+
+.reveal-left {
+  transform: translateX(-24px);
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-left.is-visible {
+  transform: none;
+}
+
+.reveal-scale.is-visible {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .grid-bg,
+  .glow-orb,
+  .animate-in,
+  .reveal {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
 
 @media (max-width: 640px) {
   .section {

@@ -4,7 +4,7 @@ import { profile } from "../data/resume";
 
 <section class="hero" id="about">
   <div class="container">
-    <div class="hero-terminal animate-in">
+    <div class="hero-terminal animate-in card-shine">
       <div class="terminal-bar">
         <span class="dot dot-red"></span>
         <span class="dot dot-yellow"></span>
@@ -79,6 +79,12 @@ import { profile } from "../data/resume";
     overflow: hidden;
     background: var(--bg-elevated);
     box-shadow: 0 0 40px #00ffd508;
+    transition: box-shadow 0.4s var(--ease-out), border-color 0.4s;
+  }
+
+  .hero-terminal:hover {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 60px #00ffd518, 0 0 0 1px #00ffd510;
   }
 
   .terminal-bar {
@@ -128,6 +134,12 @@ import { profile } from "../data/resume";
     line-height: 1.7;
     margin-bottom: 0.75rem;
     white-space: pre-wrap;
+    min-height: 7.5rem;
+  }
+
+  .terminal-output.is-typing {
+    border-right: 2px solid var(--accent);
+    animation: blink 0.8s step-end infinite;
   }
 
   .cursor-line {
@@ -160,7 +172,17 @@ import { profile } from "../data/resume";
   }
 
   .hero-name-accent {
-    color: var(--accent);
+    background: linear-gradient(
+      90deg,
+      var(--accent) 0%,
+      #ffffff 45%,
+      var(--accent) 90%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 5s linear infinite;
   }
 
   .hero-tagline {
@@ -190,6 +212,26 @@ import { profile } from "../data/resume";
     background: var(--accent);
     color: var(--bg);
     font-weight: 600;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.25) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .btn-primary:hover::before {
+    transform: translateX(120%);
   }
 
   .btn-primary:hover {
@@ -226,6 +268,12 @@ import { profile } from "../data/resume";
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--accent-secondary);
+    transition: transform 0.3s var(--ease-out), color 0.3s;
+  }
+
+  .stat:hover .stat-value {
+    transform: scale(1.08);
+    color: var(--accent);
   }
 
   .stat-label {

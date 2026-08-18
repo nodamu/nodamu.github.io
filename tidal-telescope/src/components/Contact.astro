@@ -31,16 +31,22 @@ const links = [
 
 <section class="section contact-section" id="contact">
   <div class="container">
-    <p class="section-label">// contact.init()</p>
-    <h2 class="section-title">Let's Build Something</h2>
-    <p class="contact-intro">
+    <p class="section-label reveal">// contact.init()</p>
+    <h2 class="section-title reveal">Let's Build Something</h2>
+    <p class="contact-intro reveal">
       Open to conversations about platform architecture, cloud infrastructure,
       fintech, and engineering leadership. Based in {profile.location}, working globally.
     </p>
 
     <div class="contact-grid">
-      {links.map((link) => (
-        <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined} class="contact-card">
+      {links.map((link, i) => (
+        <a
+          href={link.href}
+          target={link.href.startsWith("http") ? "_blank" : undefined}
+          rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+          class="contact-card reveal card-shine"
+          style={`transition-delay: ${i * 0.08}s`}
+        >
           <span class="contact-icon">{link.icon}</span>
           <span class="contact-label">{link.label}</span>
           <span class="contact-value">{link.value}</span>

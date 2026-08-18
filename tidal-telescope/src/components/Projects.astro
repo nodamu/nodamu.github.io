@@ -4,12 +4,15 @@ import { projects, volunteer, education } from "../data/resume";
 
 <section class="section" id="projects">
   <div class="container">
-    <p class="section-label">// open-source</p>
-    <h2 class="section-title">Projects & Community</h2>
+    <p class="section-label reveal">// open-source</p>
+    <h2 class="section-title reveal">Projects & Community</h2>
 
     <div class="projects-grid">
-      {projects.map((project) => (
-        <article class="project-card">
+      {projects.map((project, i) => (
+        <article
+          class="project-card reveal card-shine"
+          style={`transition-delay: ${i * 0.1}s`}
+        >
           <div class="project-header">
             <h3 class="project-name">{project.name}</h3>
             <time class="project-period">{project.period}</time>
@@ -24,9 +27,9 @@ import { projects, volunteer, education } from "../data/resume";
       ))}
     </div>
 
-    <div class="subsection">
+    <div class="subsection reveal">
       <h3 class="subsection-title">Education</h3>
-      <div class="edu-card">
+      <div class="edu-card card-shine">
         <div>
           <p class="edu-degree">{education.degree}</p>
           <p class="edu-school">{education.school}</p>
@@ -38,11 +41,14 @@ import { projects, volunteer, education } from "../data/resume";
       </div>
     </div>
 
-    <div class="subsection">
+    <div class="subsection reveal">
       <h3 class="subsection-title">Volunteer & Leadership</h3>
       <div class="volunteer-grid">
-        {volunteer.map((item) => (
-          <article class="volunteer-card">
+        {volunteer.map((item, i) => (
+          <article
+            class="volunteer-card reveal card-shine"
+            style={`transition-delay: ${i * 0.08}s`}
+          >
             <div class="volunteer-header">
               <h4>{item.role}</h4>
               <time>{item.period}</time>
@@ -69,12 +75,16 @@ import { projects, volunteer, education } from "../data/resume";
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s,
+      transform 0.3s var(--ease-out);
   }
 
   .project-card:hover {
     border-color: var(--accent-dim);
     box-shadow: 0 0 30px #00ffd508;
+    transform: translateY(-4px);
   }
 
   .project-header {

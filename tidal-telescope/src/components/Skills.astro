@@ -4,14 +4,14 @@ import { skills } from "../data/resume";
 
 <section class="section skills-section" id="skills">
   <div class="container">
-    <p class="section-label">// stack.config</p>
-    <h2 class="section-title">Skills & Technologies</h2>
+    <p class="section-label reveal">// stack.config</p>
+    <h2 class="section-title reveal">Skills & Technologies</h2>
 
     <div class="skills-grid">
       {skills.map((skill, i) => (
         <span
-          class="skill-chip animate-in"
-          style={`animation-delay: ${(i % 10) * 0.04}s`}
+          class="skill-chip reveal reveal-scale"
+          style={`transition-delay: ${(i % 12) * 0.05}s`}
         >
           {skill}
         </span>
@@ -19,22 +19,22 @@ import { skills } from "../data/resume";
     </div>
 
     <div class="skills-categories">
-      <div class="category-card">
+      <div class="category-card reveal card-shine" style="transition-delay: 0.05s">
         <span class="category-icon">☁</span>
         <h3>Cloud & Infrastructure</h3>
         <p>AWS, Kubernetes, Docker, EKS, OpenShift, GitOps, IaC</p>
       </div>
-      <div class="category-card">
+      <div class="category-card reveal card-shine" style="transition-delay: 0.12s">
         <span class="category-icon">⚙</span>
         <h3>Platform Engineering</h3>
         <p>CI/CD, ArgoCD, Vault, Kafka, Microservices, DevSecOps</p>
       </div>
-      <div class="category-card">
+      <div class="category-card reveal card-shine" style="transition-delay: 0.19s">
         <span class="category-icon">⌨</span>
         <h3>Languages & Frameworks</h3>
         <p>Go, Python, Java, Spring Boot, Vert.x, Apache NiFi</p>
       </div>
-      <div class="category-card">
+      <div class="category-card reveal card-shine" style="transition-delay: 0.26s">
         <span class="category-icon">🧠</span>
         <h3>AI & Data</h3>
         <p>Machine Learning, Computer Vision, MediaPipe, Kubeflow, ML Ops</p>
@@ -86,17 +86,27 @@ import { skills } from "../data/resume";
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    transition: border-color 0.2s;
+    transition:
+      border-color 0.3s,
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s;
   }
 
   .category-card:hover {
     border-color: var(--accent-dim);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px #00ffd510;
   }
 
   .category-icon {
     font-size: 1.5rem;
     display: block;
     margin-bottom: 0.75rem;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .category-card:hover .category-icon {
+    transform: scale(1.15) rotate(-4deg);
   }
 
   .category-card h3 {

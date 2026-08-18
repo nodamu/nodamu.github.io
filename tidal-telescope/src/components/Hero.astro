@@ -1,0 +1,247 @@
+---
+import { profile } from "../data/resume";
+---
+
+<section class="hero" id="about">
+  <div class="container">
+    <div class="hero-terminal animate-in">
+      <div class="terminal-bar">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+        <span class="terminal-title">nick@portfolio ~ % whoami</span>
+      </div>
+      <div class="terminal-body">
+        <p class="terminal-line">
+          <span class="prompt">$</span> cat profile.json
+        </p>
+        <pre class="terminal-output">{`{
+  "name": "${profile.name}",
+  "role": "${profile.title}",
+  "location": "${profile.location}",
+  "focus": ["cloud architecture", "platform engineering", "fintech"]
+}`}</pre>
+        <p class="terminal-line cursor-line">
+          <span class="prompt">$</span> <span class="cursor">_</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-content animate-in animate-in-delay-2">
+      <p class="hero-greeting">Solutions Architect · Platform Engineer</p>
+      <h1 class="hero-name">
+        {profile.name.split(" ").map((part, i) => (
+          <span class={i === 0 ? "hero-name-accent" : ""}>{part} </span>
+        ))}
+      </h1>
+      <p class="hero-tagline">{profile.tagline}</p>
+      <div class="hero-actions">
+        <a href="#experience" class="btn btn-primary">View Experience</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-value">8+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">5</span>
+          <span class="stat-label">Industries</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">Global</span>
+          <span class="stat-label">Remote & On-site</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-terminal {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-elevated);
+    box-shadow: 0 0 40px #00ffd508;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-green { background: #22c55e; }
+
+  .terminal-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+  }
+
+  .terminal-body {
+    padding: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .terminal-line {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .prompt {
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+
+  .terminal-output {
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    white-space: pre-wrap;
+  }
+
+  .cursor-line {
+    display: flex;
+    align-items: center;
+  }
+
+  .cursor {
+    color: var(--accent);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .hero-greeting {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-name-accent {
+    color: var(--accent);
+  }
+
+  .hero-tagline {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    max-width: 32rem;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 24px var(--accent-dim);
+    opacity: 1;
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 900px) {
+    .hero .container {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-terminal {
+      order: 2;
+    }
+  }
+</style>

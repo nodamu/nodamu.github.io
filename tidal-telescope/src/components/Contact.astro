@@ -1,0 +1,149 @@
+---
+import { profile } from "../data/resume";
+
+const links = [
+  {
+    label: "Email",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+    icon: "✉",
+  },
+  {
+    label: "LinkedIn",
+    value: "Connect on LinkedIn",
+    href: profile.linkedin,
+    icon: "in",
+  },
+  {
+    label: "GitHub",
+    value: "github.com/nodamu",
+    href: profile.github,
+    icon: "{ }",
+  },
+  {
+    label: "Phone",
+    value: profile.phone,
+    href: `tel:${profile.phone.replace(/\s/g, "")}`,
+    icon: "☎",
+  },
+];
+---
+
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <p class="section-label">// contact.init()</p>
+    <h2 class="section-title">Let's Build Something</h2>
+    <p class="contact-intro">
+      Open to conversations about platform architecture, cloud infrastructure,
+      fintech, and engineering leadership. Based in {profile.location}, working globally.
+    </p>
+
+    <div class="contact-grid">
+      {links.map((link) => (
+        <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined} class="contact-card">
+          <span class="contact-icon">{link.icon}</span>
+          <span class="contact-label">{link.label}</span>
+          <span class="contact-value">{link.value}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-text">
+      <span class="footer-bracket">&lt;</span>
+      Built with Astro
+      <span class="footer-bracket"> /&gt;</span>
+    </p>
+    <p class="footer-copy">© {new Date().getFullYear()} {profile.name}</p>
+  </div>
+</footer>
+
+<style>
+  .contact-section {
+    padding-bottom: 3rem;
+  }
+
+  .contact-intro {
+    color: var(--text-muted);
+    max-width: 36rem;
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all 0.25s;
+    color: var(--text);
+  }
+
+  .contact-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px #00ffd510;
+    opacity: 1;
+  }
+
+  .contact-icon {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .contact-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+  }
+
+  .contact-value {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-text {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .footer-bracket {
+    color: var(--accent);
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+</style>

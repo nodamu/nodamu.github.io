@@ -1,0 +1,113 @@
+---
+import { skills } from "../data/resume";
+---
+
+<section class="section skills-section" id="skills">
+  <div class="container">
+    <p class="section-label">// stack.config</p>
+    <h2 class="section-title">Skills & Technologies</h2>
+
+    <div class="skills-grid">
+      {skills.map((skill, i) => (
+        <span
+          class="skill-chip animate-in"
+          style={`animation-delay: ${(i % 10) * 0.04}s`}
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+
+    <div class="skills-categories">
+      <div class="category-card">
+        <span class="category-icon">☁</span>
+        <h3>Cloud & Infrastructure</h3>
+        <p>AWS, Kubernetes, Docker, EKS, OpenShift, GitOps, IaC</p>
+      </div>
+      <div class="category-card">
+        <span class="category-icon">⚙</span>
+        <h3>Platform Engineering</h3>
+        <p>CI/CD, ArgoCD, Vault, Kafka, Microservices, DevSecOps</p>
+      </div>
+      <div class="category-card">
+        <span class="category-icon">⌨</span>
+        <h3>Languages & Frameworks</h3>
+        <p>Go, Python, Java, Spring Boot, Vert.x, Apache NiFi</p>
+      </div>
+      <div class="category-card">
+        <span class="category-icon">🧠</span>
+        <h3>AI & Data</h3>
+        <p>Machine Learning, Computer Vision, MediaPipe, Kubeflow, ML Ops</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    background: var(--bg-elevated);
+    border-block: 1px solid var(--border);
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .skill-chip {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .skill-chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px #00ffd510;
+  }
+
+  .skills-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .category-card {
+    padding: 1.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s;
+  }
+
+  .category-card:hover {
+    border-color: var(--accent-dim);
+  }
+
+  .category-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .category-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+</style>

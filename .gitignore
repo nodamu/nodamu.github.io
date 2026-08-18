@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+tidal-telescope/node_modules/
+
+# Astro build output
+tidal-telescope/dist/
+tidal-telescope/.astro/
+
+# OS files
+.DS_Store

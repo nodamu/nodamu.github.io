@@ -71,7 +71,7 @@ function initTerminalTypewriter() {
   const output = document.querySelector<HTMLElement>(".terminal-output");
   if (!output || prefersReducedMotion) return;
 
-  const fullText = output.textContent ?? "";
+  const fullText = output.dataset.copy ?? output.textContent ?? "";
   output.textContent = "";
   output.classList.add("is-typing");
 
@@ -87,6 +87,40 @@ function initTerminalTypewriter() {
   };
 
   setTimeout(tick, 600);
+}
+
+function initTerminalCopy() {
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".terminal-copy");
+  if (!buttons.length) return;
+
+  buttons.forEach((button) => {
+    const label = button.querySelector<HTMLElement>(".terminal-copy-label");
+    const defaultLabel = label?.textContent ?? "copy";
+
+    button.addEventListener("click", async () => {
+      const output = document.querySelector<HTMLElement>(".terminal-output");
+      const text =
+        button.dataset.copy ??
+        output?.dataset.copy ??
+        output?.textContent ??
+        "";
+
+      try {
+        await navigator.clipboard.writeText(text);
+        button.classList.add("is-copied");
+        if (label) label.textContent = "copied!";
+        setTimeout(() => {
+          button.classList.remove("is-copied");
+          if (label) label.textContent = defaultLabel;
+        }, 2000);
+      } catch {
+        if (label) label.textContent = "failed";
+        setTimeout(() => {
+          if (label) label.textContent = defaultLabel;
+        }, 2000);
+      }
+    });
+  });
 }
 
 function initOrbParallax() {
@@ -126,5 +160,6 @@ initScrollProgress();
 initReveal();
 initNavHighlight();
 initTerminalTypewriter();
+initTerminalCopy();
 initOrbParallax();
 initNavScroll();

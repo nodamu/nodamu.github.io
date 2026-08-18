@@ -3,7 +3,6 @@ export const profile = {
   title: "Solutions Architect",
   location: "Tema, Ghana",
   email: "nickadamu@gmail.com",
-  phone: "+233 55 332 1138",
   linkedin: "https://linkedin.com/in/nicholas-osafo-adamu-540928142",
   github: "https://github.com/nodamu",
   tagline:

@@ -1,5 +1,16 @@
 ---
 import { profile } from "../data/resume";
+
+const profileJson = JSON.stringify(
+  {
+    name: profile.name,
+    role: profile.title,
+    location: profile.location,
+    focus: ["cloud architecture", "platform engineering", "fintech"],
+  },
+  null,
+  2,
+);
 ---
 
 <section class="hero" id="about">
@@ -10,17 +21,20 @@ import { profile } from "../data/resume";
         <span class="dot dot-yellow"></span>
         <span class="dot dot-green"></span>
         <span class="terminal-title">nick@portfolio ~ % whoami</span>
+        <button
+          type="button"
+          class="terminal-copy"
+          data-copy={profileJson}
+          aria-label="Copy profile JSON"
+        >
+          <span class="terminal-copy-label">copy</span>
+        </button>
       </div>
       <div class="terminal-body">
         <p class="terminal-line">
           <span class="prompt">$</span> cat profile.json
         </p>
-        <pre class="terminal-output">{`{
-  "name": "${profile.name}",
-  "role": "${profile.title}",
-  "location": "${profile.location}",
-  "focus": ["cloud architecture", "platform engineering", "fintech"]
-}`}</pre>
+        <pre class="terminal-output" data-copy={profileJson}>{profileJson}</pre>
         <p class="terminal-line cursor-line">
           <span class="prompt">$</span> <span class="cursor">_</span>
         </p>
@@ -96,6 +110,37 @@ import { profile } from "../data/resume";
     border-bottom: 1px solid var(--border);
   }
 
+  .terminal-copy {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background 0.2s;
+  }
+
+  .terminal-copy:hover {
+    color: var(--accent);
+    border-color: var(--accent-dim);
+    background: #00ffd508;
+  }
+
+  .terminal-copy.is-copied {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .terminal-copy-label {
+    text-transform: lowercase;
+  }
+
   .dot {
     width: 10px;
     height: 10px;
@@ -135,6 +180,8 @@ import { profile } from "../data/resume";
     margin-bottom: 0.75rem;
     white-space: pre-wrap;
     min-height: 7.5rem;
+    user-select: text;
+    cursor: text;
   }
 
   .terminal-output.is-typing {

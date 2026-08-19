@@ -1,0 +1,81 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import Contact from "../../components/Contact.astro";
+import { getCollection } from "astro:content";
+import "../../styles/blog.css";
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+function getSlug(id: string) {
+  return id.replace(/\.md$/, "");
+}
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+---
+
+<Layout
+  title="Blog — Nicholas Osafo Adamu"
+  description="Thoughts on cloud architecture, platform engineering, and fintech infrastructure."
+>
+  <Nav />
+  <main class="blog-page">
+    <div class="container">
+      <header class="blog-page-header">
+        <p class="section-label reveal">// blog.list()</p>
+        <h1 class="section-title reveal">Blog</h1>
+        <p class="blog-page-intro reveal">
+          Notes on cloud-native platforms, GitOps, and building infrastructure
+          that scales across regions and teams.
+        </p>
+      </header>
+
+      {posts.length === 0 ? (
+        <p class="blog-empty reveal">No posts yet — check back soon.</p>
+      ) : (
+        <div class="blog-grid">
+          {posts.map((post, i) => (
+            <a
+              href={`/blog/${getSlug(post.id)}`}
+              class="blog-card reveal card-shine"
+              style={`transition-delay: ${i * 0.08}s`}
+            >
+              <div class="blog-card-header">
+                <h2 class="blog-card-title">{post.data.title}</h2>
+                <time class="blog-card-date" datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
+              </div>
+              <p class="blog-card-desc">{post.data.description}</p>
+              {post.data.tags.length > 0 && (
+                <div class="blog-card-tags">
+                  {post.data.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+              <span class="blog-card-link">Read post →</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </main>
+  <Contact />
+</Layout>
+
+<style>
+  .blog-empty {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+</style>

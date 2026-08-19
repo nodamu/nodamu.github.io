@@ -69,6 +69,20 @@ export const experience = [
   },
   {
     role: "Software Engineer",
+    company: "Global PayEX",
+    location: "Mumbai, Maharashtra, India",
+    period: "Nov 2021 – Mar 2022",
+    highlights: [
+      "Developed scheme management applications to automate client schemes and discount programs",
+      "Worked with rules engines for highly complex client requirements",
+      "Built microservice applications that have processed $50B+ in transactions",
+      "Processed high-volume client data with ETL tools",
+      "Built SSO integration into client applications",
+    ],
+    tags: ["Microservices", "ETL", "SSO", "Rules Engine", "Fintech"],
+  },
+  {
+    role: "Software Engineer",
     company: "GXT Labs",
     location: "Kumasi, Ghana",
     period: "Feb 2016 – Dec 2020",

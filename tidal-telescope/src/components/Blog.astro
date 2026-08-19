@@ -1,0 +1,85 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  limit?: number;
+  showViewAll?: boolean;
+}
+
+const { limit, showViewAll = true } = Astro.props;
+
+const posts = (await getCollection("blog"))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, limit);
+
+function getSlug(id: string) {
+  return id.replace(/\.md$/, "");
+}
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
+---
+
+<section class="section blog-section" id="blog">
+  <div class="container">
+    <p class="section-label reveal">// blog.recent()</p>
+    <h2 class="section-title reveal">Writing</h2>
+
+    {posts.length === 0 ? (
+      <p class="blog-empty reveal">No posts yet — check back soon.</p>
+    ) : (
+      <div class="blog-grid">
+        {posts.map((post, i) => (
+          <a
+            href={`/blog/${getSlug(post.id)}`}
+            class="blog-card reveal card-shine"
+            style={`transition-delay: ${i * 0.1}s`}
+          >
+            <div class="blog-card-header">
+              <h3 class="blog-card-title">{post.data.title}</h3>
+              <time class="blog-card-date" datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+            </div>
+            <p class="blog-card-desc">{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="blog-card-tags">
+                {post.data.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            )}
+            <span class="blog-card-link">Read post →</span>
+          </a>
+        ))}
+      </div>
+    )}
+
+    {showViewAll && posts.length > 0 && (
+      <div class="blog-section-footer reveal">
+        <a href="/blog" class="blog-view-all">View all posts</a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  @import "../styles/blog.css";
+
+  .blog-section {
+    background: var(--bg-elevated);
+    border-block: 1px solid var(--border);
+  }
+
+  .blog-empty {
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+</style>

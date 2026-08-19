@@ -1,0 +1,34 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Nav from "../../components/Nav.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
+import Contact from "../../components/Contact.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, "") },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} — Nicholas Osafo Adamu`} description={post.data.description}>
+  <Nav />
+  <main>
+    <BlogPost
+      title={post.data.title}
+      description={post.data.description}
+      pubDate={post.data.pubDate}
+      tags={post.data.tags}
+    >
+      <Content />
+    </BlogPost>
+  </main>
+  <Contact />
+</Layout>

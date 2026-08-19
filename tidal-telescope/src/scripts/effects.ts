@@ -48,9 +48,17 @@ function initNavHighlight() {
 
   const linkMap = new Map<string, HTMLAnchorElement>();
   links.forEach((link) => {
-    const id = link.getAttribute("href")?.replace("#", "");
+    const href = link.getAttribute("href") ?? "";
+    const id = href.includes("#") ? href.split("#")[1] : "";
     if (id) linkMap.set(id, link);
   });
+
+  const blogLink = [...links].find((link) => link.getAttribute("href") === "/blog");
+  if (blogLink && window.location.pathname.startsWith("/blog")) {
+    links.forEach((l) => l.classList.remove("is-active"));
+    blogLink.classList.add("is-active");
+    return;
+  }
 
   const observer = new IntersectionObserver(
     (entries) => {
